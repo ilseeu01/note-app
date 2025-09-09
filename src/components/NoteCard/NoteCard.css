@@ -1,0 +1,119 @@
+.note-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+  cursor: pointer;
+  position: relative;
+}
+
+.note-card:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transform: translateY(-1px);
+}
+
+.note-card.pink {
+  background-color: #ffeaa7;
+}
+
+.note-card.blue {
+  background-color: #74b9ff;
+}
+
+.note-card.red {
+  background-color: #fab1a0;
+}
+
+.note-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.note-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.priority-badge {
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+.priority-high {
+  background-color: rgba(231, 76, 60, 0.8); /* Red for high priority */
+}
+
+.priority-medium {
+  background-color: rgba(230, 126, 34, 0.8); /* Orange for medium priority */
+}
+
+.note-content {
+  color: #555;
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.note-tags {
+  margin-bottom: 8px;
+}
+
+.note-tag {
+  display: inline-block;
+  background-color: rgba(0,0,0,0.1);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  color: #666;
+  margin-right: 4px;
+  margin-bottom: 4px;
+}
+
+.note-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #999;
+}
+
+.note-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.note-action {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #666;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+  padding: 4px;
+}
+
+.note-card:hover .note-action {
+  opacity: 1;
+}
+
+.note-action:hover {
+  color: #333;
+}
+
+.pin-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #e17055;
+  font-size: 16px;
+}
