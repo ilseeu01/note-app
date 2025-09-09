@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
 import NoteCard from '../NoteCard/NoteCard';
+import { Note, SortOption } from '../../types';
 import './MainContent.css';
 
-const MainContent = ({ pinnedNotes, unpinnedNotes, searchTerm, setSearchTerm, onAddNote, onEditNote, onDeleteNote, sortOption, setSortOption }) => {
+interface MainContentProps {
+  pinnedNotes: Note[];
+  unpinnedNotes: Note[];
+  searchTerm: string;
+  setSearchTerm: (term: string) => void;
+  onAddNote: () => void;
+  onEditNote: (note: Note) => void;
+  onDeleteNote: (noteId: number) => void;
+  sortOption: SortOption;
+  setSortOption: (option: SortOption) => void;
+}
+
+const MainContent: React.FC<MainContentProps> = ({ pinnedNotes, unpinnedNotes, searchTerm, setSearchTerm, onAddNote, onEditNote, onDeleteNote, sortOption, setSortOption }) => {
   const [showSortModal, setShowSortModal] = useState(false);
 
   return (
@@ -63,7 +76,7 @@ const MainContent = ({ pinnedNotes, unpinnedNotes, searchTerm, setSearchTerm, on
 
       {/* Sort Modal */}
       {showSortModal && (
-        <div className="modal-overlay" onClick={(e) => e.target.className === 'modal-overlay' && setShowSortModal(false)}>
+        <div className="modal-overlay" onClick={(e) => (e.target as HTMLElement).className === 'modal-overlay' && setShowSortModal(false)}>
           <div className="sort-modal">
             <div className="sort-modal-header">
               <h3>정렬</h3>
@@ -89,7 +102,7 @@ const MainContent = ({ pinnedNotes, unpinnedNotes, searchTerm, setSearchTerm, on
                       name="sort" 
                       value="priority-low-high"
                       checked={sortOption === 'priority-low-high'}
-                      onChange={(e) => setSortOption(e.target.value)}
+                      onChange={(e) => setSortOption(e.target.value as SortOption)}
                     />
                     Low to High
                   </label>
@@ -99,7 +112,7 @@ const MainContent = ({ pinnedNotes, unpinnedNotes, searchTerm, setSearchTerm, on
                       name="sort" 
                       value="priority-high-low"
                       checked={sortOption === 'priority-high-low'}
-                      onChange={(e) => setSortOption(e.target.value)}
+                      onChange={(e) => setSortOption(e.target.value as SortOption)}
                     />
                     High to Low
                   </label>
@@ -115,7 +128,7 @@ const MainContent = ({ pinnedNotes, unpinnedNotes, searchTerm, setSearchTerm, on
                       name="sort" 
                       value="latest"
                       checked={sortOption === 'latest'}
-                      onChange={(e) => setSortOption(e.target.value)}
+                      onChange={(e) => setSortOption(e.target.value as SortOption)}
                     />
                     Sort by Latest
                   </label>
@@ -125,7 +138,7 @@ const MainContent = ({ pinnedNotes, unpinnedNotes, searchTerm, setSearchTerm, on
                       name="sort" 
                       value="created"
                       checked={sortOption === 'created'}
-                      onChange={(e) => setSortOption(e.target.value)}
+                      onChange={(e) => setSortOption(e.target.value as SortOption)}
                     />
                     Sort by Created
                   </label>
@@ -135,7 +148,7 @@ const MainContent = ({ pinnedNotes, unpinnedNotes, searchTerm, setSearchTerm, on
                       name="sort" 
                       value="edited"
                       checked={sortOption === 'edited'}
-                      onChange={(e) => setSortOption(e.target.value)}
+                      onChange={(e) => setSortOption(e.target.value as SortOption)}
                     />
                     Sort by Edited
                   </label>

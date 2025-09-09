@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import './TagModal.css';
 
-const TagModal = ({ onClose, availableTags, selectedTags, setSelectedTags, onAddTag }) => {
+interface TagModalProps {
+  onClose: () => void;
+  availableTags: string[];
+  selectedTags: string[];
+  setSelectedTags: (tags: string[]) => void;
+  onAddTag: (tagName: string) => void;
+}
+
+const TagModal: React.FC<TagModalProps> = ({ onClose, availableTags, selectedTags, setSelectedTags, onAddTag }) => {
   const [newTagInput, setNewTagInput] = useState('');
 
   const handleNewTagSubmit = (e) => {
@@ -15,17 +23,18 @@ const TagModal = ({ onClose, availableTags, selectedTags, setSelectedTags, onAdd
   };
 
   const toggleTagSelection = (tagName) => {
-    const newSelectedTags = new Set(selectedTags);
-    if (newSelectedTags.has(tagName)) {
-      newSelectedTags.delete(tagName);
+    const newSelectedTags = [...selectedTags];
+    if (newSelectedTags.includes(tagName)) {
+      const index = newSelectedTags.indexOf(tagName);
+      newSelectedTags.splice(index, 1);
     } else {
-      newSelectedTags.add(tagName);
+      newSelectedTags.push(tagName);
     }
     setSelectedTags(newSelectedTags);
   };
 
   return (
-    <div className="tag-modal-overlay" onClick={(e) => e.target.className === 'tag-modal-overlay' && onClose()}>
+    <div className="tag-modal-overlay" onClick={(e) => (e.target as HTMLElement).className === 'tag-modal-overlay' && onClose()}>
       <div className="tag-modal-content">
         <div className="tag-modal-header">
           <h3 className="tag-modal-title">ADD Tags</h3>
@@ -44,7 +53,7 @@ const TagModal = ({ onClose, availableTags, selectedTags, setSelectedTags, onAdd
           
           <div className="tag-list">
             {availableTags.map(tagName => {
-              const isSelected = selectedTags.has(tagName);
+              const isSelected = selectedTags.includes(tagName);
               return (
                 <div key={tagName} className="tag-option">
                   <span className="tag-option-name">{tagName}</span>

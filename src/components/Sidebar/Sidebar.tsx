@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
 import './Sidebar.css';
 
-const Sidebar = ({ tags, activeNavItem, setActiveNavItem, selectedTag, setSelectedTag, onAddTag, onDeleteTag }) => {
+interface SidebarProps {
+  tags: string[];
+  activeNavItem: string;
+  setActiveNavItem: (item: string) => void;
+  selectedTag: string | null;
+  setSelectedTag: (tag: string | null) => void;
+  onAddTag: (tagName: string) => void;
+  onDeleteTag: (tagName: string) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ tags, activeNavItem, setActiveNavItem, selectedTag, setSelectedTag, onAddTag, onDeleteTag }) => {
   const [newTagInput, setNewTagInput] = useState('');
 
   const bottomNavItems = [
@@ -10,34 +20,34 @@ const Sidebar = ({ tags, activeNavItem, setActiveNavItem, selectedTag, setSelect
     { id: 'trash', icon: '🗑️', text: 'Trash' },
   ];
 
-  const handleNavClick = (itemId) => {
+  const handleNavClick = (itemId: string): void => {
     setActiveNavItem(itemId);
     setSelectedTag(null);
   };
 
-  const handleNotesClick = () => {
+  const handleNotesClick = (): void => {
     setActiveNavItem('notes');
     setSelectedTag(null);
   };
 
-  const handleTagClick = (tag) => {
+  const handleTagClick = (tag: string): void => {
     setActiveNavItem('notes');
     setSelectedTag(tag);
   };
 
-  const handleDeleteTag = (e, tag) => {
+  const handleDeleteTag = (e: React.MouseEvent, tag: string): void => {
     e.stopPropagation(); // Prevent tag selection when clicking delete
     onDeleteTag(tag);
   };
 
-  const handleAddTag = () => {
+  const handleAddTag = (): void => {
     if (newTagInput.trim() && !tags.includes(newTagInput.trim())) {
       onAddTag(newTagInput.trim());
       setNewTagInput('');
     }
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent): void => {
     if (e.key === 'Enter') {
       handleAddTag();
     }

@@ -1,8 +1,15 @@
 import React from 'react';
+import { Note } from '../../types';
 import './NoteCard.css';
 
-const NoteCard = ({ note, onEdit, onDelete }) => {
-  const formatDate = (date) => {
+interface NoteCardProps {
+  note: Note;
+  onEdit: (note: Note) => void;
+  onDelete: (noteId: number) => void;
+}
+
+const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit, onDelete }) => {
+  const formatDate = (date: Date): string => {
     return new Intl.DateTimeFormat('ko-KR', {
       year: '2-digit',
       month: '2-digit',

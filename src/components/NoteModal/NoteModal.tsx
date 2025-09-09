@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { Note, NoteFormData } from '../../types';
 import './NoteModal.css';
 
-const NoteModal = ({ onClose, onSave, availableTags, selectedTags, setSelectedTags, onShowTagModal, editingNote }) => {
+interface NoteModalProps {
+  onClose: () => void;
+  onSave: (noteData: any) => void;
+  availableTags: string[];
+  selectedTags: string[];
+  setSelectedTags: (tags: string[]) => void;
+  onShowTagModal: () => void;
+  editingNote: Note | null;
+}
+
+const NoteModal: React.FC<NoteModalProps> = ({ onClose, onSave, availableTags, selectedTags, setSelectedTags, onShowTagModal, editingNote }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [color, setColor] = useState('white');
-  const [priority, setPriority] = useState('low');
+  const [color, setColor] = useState<'white' | 'pink' | 'blue' | 'red'>('white');
+  const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('low');
 
   useEffect(() => {
     if (editingNote) {
@@ -35,12 +46,12 @@ const NoteModal = ({ onClose, onSave, availableTags, selectedTags, setSelectedTa
     onClose();
   };
 
-  const handleColorChange = (selectedColor) => {
+  const handleColorChange = (selectedColor: 'white' | 'pink' | 'blue' | 'red') => {
     setColor(selectedColor);
     updateTextareaBackground(selectedColor);
   };
 
-  const updateTextareaBackground = (selectedColor) => {
+  const updateTextareaBackground = (selectedColor: string) => {
     const textarea = document.getElementById('note-content');
     if (textarea) {
       switch(selectedColor) {
@@ -63,7 +74,7 @@ const NoteModal = ({ onClose, onSave, availableTags, selectedTags, setSelectedTa
   };
 
   const handleToolbarAction = (action) => {
-    const textarea = document.getElementById('note-content');
+    const textarea = document.getElementById('note-content') as HTMLTextAreaElement;
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
     const selectedText = textarea.value.substring(start, end);
@@ -116,7 +127,7 @@ const NoteModal = ({ onClose, onSave, availableTags, selectedTags, setSelectedTa
   }, [color]);
 
   return (
-    <div className="modal-overlay" onClick={(e) => e.target.className === 'modal-overlay' && onClose()}>
+    <div className="modal-overlay" onClick={(e) => (e.target as HTMLElement).className === 'modal-overlay' && onClose()}>
       <div className="note-modal">
         <div className="modal-header">
           <h3 className="modal-title">{editingNote ? '노트 수정하기' : '노트 생성하기'}</h3>
@@ -176,7 +187,7 @@ const NoteModal = ({ onClose, onSave, availableTags, selectedTags, setSelectedTa
               <select
                 className="form-select"
                 value={color}
-                onChange={(e) => handleColorChange(e.target.value)}
+                onChange={(e) => handleColorChange(e.target.value as 'white' | 'pink' | 'blue' | 'red')}
               >
                 <option value="white">White</option>
                 <option value="pink">Pink</option>
@@ -189,7 +200,7 @@ const NoteModal = ({ onClose, onSave, availableTags, selectedTags, setSelectedTa
               <select
                 className="form-select"
                 value={priority}
-                onChange={(e) => setPriority(e.target.value)}
+                onChange={(e) => setPriority(e.target.value as 'low' | 'medium' | 'high')}
               >
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
