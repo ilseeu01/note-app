@@ -2,6 +2,9 @@
 
 React로 제작한 Google Keep 스타일의 노트 관리 애플리케이션입니다.
 
+## 🌐 Live Demo
+**[https://ilseeu01.github.io/note-app/](https://ilseeu01.github.io/note-app/)**
+
 ## 🚀 주요 기능
 
 ### 📝 노트 관리
@@ -33,10 +36,11 @@ React로 제작한 Google Keep 스타일의 노트 관리 애플리케이션입�
 
 ## 🛠️ 기술 스택
 
-- **Frontend**: React 18.2.0
+- **Frontend**: React 18.2.0 + TypeScript
+- **State Management**: Redux Toolkit + React-Redux
 - **Styling**: CSS3 (모듈 방식)
 - **Build Tool**: Create React App
-- **State Management**: React Hooks (useState)
+- **Deployment**: GitHub Pages
 
 ## 📦 설치 및 실행
 
